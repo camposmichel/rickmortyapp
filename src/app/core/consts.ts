@@ -1,0 +1,1 @@
+export const INTERCEPT_PREFIX = 'INTERCEPT_PREFIX';

@@ -1,0 +1,10 @@
+.container {
+  padding: 12px 80px;
+  height: 90%;
+  overflow: scroll;
+
+  mat-card {
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+}

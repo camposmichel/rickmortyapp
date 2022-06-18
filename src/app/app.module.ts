@@ -14,7 +14,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import * as fromApp from './+state/app/app.reducer';
 import { AppEffects } from './+state/app/app.effects';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ApiPrefixInterceptor } from './core/interceptors/api-prefix.interceptor';
 
 @NgModule({
@@ -25,6 +25,7 @@ import { ApiPrefixInterceptor } from './core/interceptors/api-prefix.interceptor
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FeaturesModule,
     HomeModule,
     DetailsModule,

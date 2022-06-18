@@ -12,8 +12,12 @@ export class CommonService<T> {
     @Inject(String) private uri: string
   ) {}
 
-  get(): Observable<ApiResponse<T>> {
-    return this.http.get<ApiResponse<T>>(this.uri);
+  get(page?: number): Observable<ApiResponse<T>> {
+    return this.http.get<ApiResponse<T>>(this.uri, {
+      params: {
+        page: page || ''
+      }
+    });
   }
 
   getById(id: string): Observable<T> {

@@ -1,10 +1,19 @@
-<!-- <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar> -->
-<div class="container">
-  <mat-card *ngFor="let item of [0,1,2,3,4,5,6,7,8,9]">
-    <mat-card-title-group>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Small</mat-card-subtitle>
-      <img mat-card-md-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" >
-    </mat-card-title-group>
-  </mat-card>
+<!-- <mat-progress-bar *ngIf="loading$ | async" color="accent" mode="indeterminate"></mat-progress-bar> -->
+<div class="container" *ngIf="tabTypeSelected$ | async as tabTypeSelected">
+  <ng-container *ngIf="items$[tabTypeSelected] | async as itemList">
+    <mat-card *ngFor="let item of itemList">
+      <mat-card-title-group>
+        <mat-card-title>
+          #{{ item?.id }}
+          {{ item?.name }}
+        </mat-card-title>
+        <mat-card-subtitle>{{ item?.id }}</mat-card-subtitle>
+        <img mat-card-md-image *ngIf="item?.image" [src]="item?.image" />
+      </mat-card-title-group>
+    </mat-card>
+
+    <div class="button-container">
+      <button mat-raised-button color="accent" (click)="loadMore()">Load more</button>
+    </div>
+  </ng-container>
 </div>

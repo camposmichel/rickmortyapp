@@ -1,12 +1,38 @@
 <mat-toolbar color="primary">
   <img src="assets/images/image.png" width="80" />
   <span class="spacer"></span>
-  <button mat-flat-button color="primary">Characters</button>
-  <button mat-flat-button color="accent">Locations</button>
-  <button mat-flat-button color="primary">Episodes</button>
+  <button
+    mat-flat-button
+    [color]="
+      (tabTypeSelected$ | async) === tabTypeEnum.CHARACTER
+        ? 'accent'
+        : 'primary'
+    "
+    (click)="setTabType(tabTypeEnum.CHARACTER)"
+  >
+    Characters
+  </button>
+  <button
+    mat-flat-button
+    [color]="
+      (tabTypeSelected$ | async) === tabTypeEnum.LOCATION ? 'accent' : 'primary'
+    "
+    (click)="setTabType(tabTypeEnum.LOCATION)"
+  >
+    Locations
+  </button>
+  <button
+    mat-flat-button
+    [color]="
+      (tabTypeSelected$ | async) === tabTypeEnum.EPISODE ? 'accent' : 'primary'
+    "
+    (click)="setTabType(tabTypeEnum.EPISODE)"
+  >
+    Episodes
+  </button>
   <span class="spacer"></span>
   <mat-form-field appearance="fill">
-    <input matInput type="text" [(ngModel)]="value" />
+    <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
     <button
       *ngIf="value"
       matSuffix

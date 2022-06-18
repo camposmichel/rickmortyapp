@@ -1,15 +1,37 @@
+import { ApiResponse } from './../../core/models/api-response.model';
 import { createAction, props } from '@ngrx/store';
-
-export const loadApps = createAction(
-  '[App] Load Apps'
-);
-
-export const loadAppsSuccess = createAction(
-  '[App] Load Apps Success',
-  props<{ data: any }>()
-);
+import { TabType } from 'src/app/core/models/app.enum';
 
 export const loadAppsFailure = createAction(
   '[App] Load Apps Failure',
   props<{ error: any }>()
+);
+
+export const selectTabType = createAction(
+  '[App] Select Tab Type',
+  props<{ tabType: TabType }>()
+);
+
+export const loadMoreData = createAction(
+  '[App] Load More Data'
+);
+
+export const loadCharacter = createAction(
+  '[App] Load Character',
+  props<{ page?: number }>()
+);
+
+export const loadEpisode = createAction(
+  '[App] Load Episode',
+  props<{ page?: number }>()
+);
+
+export const loadLocation = createAction(
+  '[App] Load Location',
+  props<{ page?: number }>()
+);
+
+export const loadSuccess = createAction(
+  '[App] Load Success',
+  props<{ data: ApiResponse<any>, loadMore: boolean }>()
 );

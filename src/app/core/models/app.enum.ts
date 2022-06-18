@@ -1,0 +1,5 @@
+export enum TabType {
+  CHARACTER = 'CHARACTER',
+  EPISODE = 'EPISODE',
+  LOCATION = 'LOCATION',
+}

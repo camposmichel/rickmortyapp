@@ -16,6 +16,11 @@ export const loadMoreData = createAction(
   '[App] Load More Data'
 );
 
+export const loadSearch = createAction(
+  '[App] Load Search',
+  props<{ search: string }>()
+);
+
 export const loadCharacter = createAction(
   '[App] Load Character',
   props<{ page?: number }>()

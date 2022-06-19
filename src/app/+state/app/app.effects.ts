@@ -1,3 +1,7 @@
+import { ILocation } from './../../core/models/location.model';
+import { IEpisode } from './../../core/models/episode.model';
+import { ICharacter } from './../../core/models/character.model';
+import { ApiResponse } from './../../core/models/api-response.model';
 import { TabType } from './../../core/models/app.enum';
 import { LocationService } from './../../core/services/location.service';
 import { EpisodeService } from './../../core/services/episode.service';
@@ -68,6 +72,37 @@ export class AppEffects {
               })
             );
         }
+      })
+    );
+  });
+
+  loadSearch$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(AppActions.loadSearch),
+      withLatestFrom(this.store$),
+      concatMap(([action, { app }]: any) => {
+        const { tabType } = app;
+        let request: Observable<ApiResponse<ICharacter | IEpisode | ILocation>>;
+        switch (tabType) {
+          case TabType.CHARACTER:
+            request = this.characterService.search(action.search);
+            break;
+          case TabType.EPISODE:
+            request = this.episodeService.search(action.search);
+            break;
+          case TabType.LOCATION:
+            request = this.locationService.search(action.search);
+            break;
+          default:
+            request = this.characterService.search(action.search);
+            break;
+        }
+        return request.pipe(
+          map((data) =>
+            AppActions.loadSuccess({ data, loadMore: false })
+          ),
+          catchError((error) => of(AppActions.loadAppsFailure({ error })))
+        );
       })
     );
   });

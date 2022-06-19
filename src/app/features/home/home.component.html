@@ -32,13 +32,19 @@
   </button>
   <span class="spacer"></span>
   <mat-form-field appearance="fill">
-    <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+    <input
+      matInput
+      type="text"
+      placeholder="Search"
+      [(ngModel)]="search"
+      (ngModelChange)="searching$.next($event)"
+    />
     <button
-      *ngIf="value"
+      *ngIf="search"
       matSuffix
       mat-icon-button
       aria-label="Clear"
-      (click)="value = ''"
+      (click)="search = ''"
     >
       <mat-icon>close</mat-icon>
     </button>

@@ -82,6 +82,11 @@ export class AppEffects {
       withLatestFrom(this.store$),
       concatMap(([action, { app }]: any) => {
         const { tabType } = app;
+
+        if (!action.search) {
+          return of(AppActions.selectTabType({tabType: tabType}))
+        }
+
         let request: Observable<ApiResponse<ICharacter | IEpisode | ILocation>>;
         switch (tabType) {
           case TabType.CHARACTER:
@@ -99,7 +104,7 @@ export class AppEffects {
         }
         return request.pipe(
           map((data) =>
-            AppActions.loadSuccess({ data, loadMore: false })
+            AppActions.loadSuccess({ data, loadMore: false, hasSearch: true })
           ),
           catchError((error) => of(AppActions.loadAppsFailure({ error })))
         );

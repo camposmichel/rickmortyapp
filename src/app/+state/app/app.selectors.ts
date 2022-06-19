@@ -29,3 +29,13 @@ export const getLocationList = createSelector(
   selectAppState,
   (state: fromApp.State) => state.locationResponse?.results || []
 );
+
+export const getItemSelected = createSelector(
+  selectAppState,
+  (state: fromApp.State) => state.itemSelected
+);
+
+export const getHasSearch = createSelector(
+  selectAppState,
+  (state: fromApp.State) => state.hasSearch
+);

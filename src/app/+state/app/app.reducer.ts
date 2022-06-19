@@ -10,10 +10,12 @@ export const appFeatureKey = 'app';
 
 export interface State {
   loading: boolean;
+  hasSearch?: boolean;
   tabType: TabType;
   characterResponse?: ApiResponse<ICharacter>;
   episodeResponse?: ApiResponse<IEpisode>;
   locationResponse?: ApiResponse<ILocation>;
+  itemSelected?: ICharacter | IEpisode | ILocation;
 }
 
 export const initialState: State = {
@@ -45,7 +47,11 @@ export const reducer = createReducer(
       default:
         return handleState(state, action, 'characterResponse');
     }
-  })
+  }),
+  on(
+    AppActions.selectItem,
+    (state, action) => (state = { ...state, itemSelected: action.data })
+  )
 );
 
 function handleState(
@@ -53,6 +59,7 @@ function handleState(
   action: {
     data: ApiResponse<any>;
     loadMore: boolean;
+    hasSearch?: boolean;
   },
   property: string
 ): State {
@@ -60,6 +67,7 @@ function handleState(
   return {
     ...state,
     loading: false,
+    hasSearch: action.hasSearch,
     [property]: action.loadMore
       ? {
           ...action.data,

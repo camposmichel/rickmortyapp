@@ -1,19 +1,19 @@
 <!-- <mat-progress-bar *ngIf="loading$ | async" color="accent" mode="indeterminate"></mat-progress-bar> -->
 <div class="container" *ngIf="tabTypeSelected$ | async as tabTypeSelected">
   <ng-container *ngIf="items$[tabTypeSelected] | async as itemList">
-    <mat-card *ngFor="let item of itemList">
+    <mat-card *ngFor="let item of itemList" (click)="selectItem(item)">
       <mat-card-title-group>
         <mat-card-title>
           #{{ item?.id }}
           {{ item?.name }}
         </mat-card-title>
-        <mat-card-subtitle>{{ item?.id }}</mat-card-subtitle>
+        <!-- <mat-card-subtitle>{{ item?.id }}</mat-card-subtitle> -->
         <img mat-card-md-image *ngIf="item?.image" [src]="item?.image" />
       </mat-card-title-group>
     </mat-card>
 
     <div class="button-container">
-      <button mat-raised-button color="accent" (click)="loadMore()">Load more</button>
+      <button mat-raised-button color="accent" (click)="loadMore()" [disabled]="hasSearch$ | async">Load more</button>
     </div>
   </ng-container>
 </div>

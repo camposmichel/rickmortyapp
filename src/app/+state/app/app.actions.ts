@@ -1,3 +1,6 @@
+import { ILocation } from './../../core/models/location.model';
+import { IEpisode } from './../../core/models/episode.model';
+import { ICharacter } from './../../core/models/character.model';
 import { ApiResponse } from './../../core/models/api-response.model';
 import { createAction, props } from '@ngrx/store';
 import { TabType } from 'src/app/core/models/app.enum';
@@ -38,5 +41,10 @@ export const loadLocation = createAction(
 
 export const loadSuccess = createAction(
   '[App] Load Success',
-  props<{ data: ApiResponse<any>, loadMore: boolean }>()
+  props<{ data: ApiResponse<any>, loadMore: boolean, hasSearch?: boolean }>()
+);
+
+export const selectItem = createAction(
+  '[App] Select Item',
+  props<{ data: ICharacter | IEpisode | ILocation }>()
 );
